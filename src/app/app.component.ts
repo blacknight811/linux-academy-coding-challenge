@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+  title = 'Linux Academy Car Wash';
+  total: number;
+
+  onDisplayTotal(updatedTotal) {
+    this.total = updatedTotal;
+  }
 }

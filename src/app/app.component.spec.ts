@@ -2,12 +2,14 @@
 
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import {VehicleInputFormComponent} from './vehicle-input-form/vehicle-input-form.component';
 
-describe('AppComponent', () => {
+xdescribe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        VehicleInputFormComponent
       ],
     });
     TestBed.compileComponents();

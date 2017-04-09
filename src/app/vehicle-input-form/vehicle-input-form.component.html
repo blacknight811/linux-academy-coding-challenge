@@ -1,0 +1,59 @@
+<form [formGroup]="carWashForm"
+      (ngSubmit)="onSubmit(carWashForm.value)">
+  <div>
+    <div>
+    </div>
+    <md-input-container  class="license-plate__input">
+      <input type="text"
+             mdInput
+             id="license-plate"
+             value="licensePlate"
+             placeholder="Input License Plate"
+             (change)="licensePlateInput($event.target.value)"
+             [formControl]="carWashForm.controls['licensePlate']">
+
+    <md-hint class="license-plate__error" *ngIf="errors?.licensePlate">{{errors?.licensePlate}}</md-hint>
+    </md-input-container>
+
+  </div>
+
+  <div>
+    <span>Choose Vehicle Type</span>
+    <select name="vehicle-type" id="vehicle-type" (change)="selectVehicle($event.target.value)"
+            [formControl]="carWashForm.controls['vehicle-type']">
+      <option *ngFor="let type of vehicleOptions"[value]="type.value">{{type.display}}</option>
+    </select>
+  </div>
+
+  <div *ngIf="isTruck">
+    <span>Is there mud in the bed of the truck?</span>
+    <select name="mud-in-bed" id="mud-in-bed" (change)="isMudInBed($event.target.value)"
+            [formControl]="carWashForm.controls['mud-in-bed']">
+      <option value="yes"> Yes</option>
+      <option value="no"> No</option>
+    </select>
+  </div>
+  <div *ngIf="isTruck">
+    <span>Is the bed of the truck let down?</span>
+    <select name="mud-in-bed" id="bed-let-down" (change)="isBedLetDown($event.target.value)"
+            [formControl]="carWashForm.controls['bed-let-down']">
+      <option value="yes"> Yes</option>
+      <option value="no"> No</option>
+    </select>
+    <p>{{errors?.bedLetDown}}</p>
+  </div>
+
+  <button md-button [color]="primary" type="submit" [disabled]="disabled || carWashForm.invalid">Store Transaction</button>
+</form>
+
+<div>
+  <md-list>
+    <md-list-item *ngFor="let transaction of lastTenTransactions">
+      License Plate #: {{transaction.licensePlate}}, Vehicle Type: {{transaction['vehicle-type']}} <span
+      *ngIf="transaction['vehicle-type'] === 'truck'">, Mud in Bed: {{transaction['mud-in-bed']}}</span>
+    </md-list-item>
+  </md-list>
+</div>
+
+<h1 class="transaction-total">{{total | currency}}</h1>
+
